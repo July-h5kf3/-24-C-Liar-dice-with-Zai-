@@ -23,12 +23,10 @@ $P = 1 - \binom{0}{5}(\frac{1}{6})^0 * (\frac{5}{6})^5 - \binom{1}{5}(\frac{1}{6
 
 那么此时我们认为对方至少拥有
 $$
-\left\{
-\begin{array}{rcl}
-r- d        &      & {r > d}\\
-r    &      & {r\leq d}\\
-
-\end{array} \right.
+\begin{cases}
+r-  d &\text{r > m }\\
+r &\text r\leq m\\
+\end{cases}
 
 $$
 个点数为1的骰子，则剩下的骰子则平摊给其他点数的骰子，此时我们就得到了对手的maybeDice，从而计算每个guess 的 概率
@@ -48,3 +46,5 @@ $D(X) = \sigma^2=  npq = \frac{10}{3}$
 因此我们只需要通过标准正态分布的CDF即可计算概率
 
 结合这两个我们可以计算出每个合法猜测的prob，从中选出概率最大的作为本次的猜测，如果最大的概率都小于我们设定的阈值，我们就选择liar
+upd：
+上传报告，并修改了公式
