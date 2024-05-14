@@ -163,7 +163,8 @@ void ZAI::go()
 void ZAI::go_test_only()
 {
 	//先计算概率
-	//printf("test prob = %lf", normal_cdf(1.0 - (5.0 / 6) / (25.0 / 36)));
+	printf("test prob = %lf",caculate(2.0,1));
+	memset(dice, 0, sizeof(dice));
 	for (int i = 0; i < 5; i++)
 		dice[ui->dice_ai[i]]++;
 	double prob;
@@ -172,10 +173,10 @@ void ZAI::go_test_only()
 	puts("");
 	double chazhi = 1.0 * ui->lassguess.count - 1.0 * dice[ui->lassguess.value] - 1.0 * (ui->lassguess.value == 0 ? 0 : dice[0]);
 	printf("COUNT = %d VALUE = %d chazhi = %lf", ui->lassguess.count, ui->lassguess.value, chazhi);
-	if (ui->lassguess.value != 0)prob = caculate(chazhi,0);
-	else prob = caculate(chazhi,1);
+	if (ui->lassguess.value != 0)prob = caculate(chazhi,1);
+	else prob = caculate(chazhi,0);
 	printf("prob = %lf\n", prob);
-	if (prob <= threshold2)ui->checkover();
+	if (prob <= threshold)ui->checkover();
 	//枚举所有可能猜测
 	std::vector<Good_bid>MaybeGuess;
 	for(int COUNT = 2;COUNT <= 10;COUNT++)
@@ -247,7 +248,7 @@ void ZAI::go_test_only()
 		else s = caculate(chazhi,0);
 		printf("chazi = %lf\n",chazhi);
 		printf("this is a guess: COUNT = %d VALUE = %d whose prob is :%lf\n", x.count, x.value, s);
-		if (maxx < s && s >= threshold)
+		if (maxx <= s && s >= threshold)
 		{
 			maxx = s;
 			AI_COUNT = x.count;

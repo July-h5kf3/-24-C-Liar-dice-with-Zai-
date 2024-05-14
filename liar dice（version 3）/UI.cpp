@@ -196,19 +196,22 @@ void UI::checkover()
 		}
 	}
 	printf("whose turn = %d Count = %d lassguss = %d", whose_turn,COUNT,lassguess.count);
-	if (whose_turn == 0 && COUNT <= lassguess.count)//如果是player叫的
+	if (whose_turn == 0 && COUNT < lassguess.count)//如果是player叫的
 		MessageBox(NULL, "YOU WIN。", "提示", MB_OK);
-	else if (whose_turn == 0 && COUNT > lassguess.count)
+	else if (whose_turn == 0 && COUNT >= lassguess.count)
 		MessageBox(NULL, "YOU FAIL.", "提示", MB_OK);
-	if (whose_turn == 1 && COUNT <= lassguess.count)
+	if (whose_turn == 1 && COUNT < lassguess.count)
 		MessageBox(NULL, "YOU FAIL.", "提示", MB_OK);
-	else if (whose_turn == 1 && COUNT > lassguess.count)
+	else if (whose_turn == 1 && COUNT >= lassguess.count)
 		MessageBox(NULL, "YOU WIN.", "提示", MB_OK);
 	exit(0);
 }
 
 bool UI::checkGuess(int Count,int Value)
 {
-	if ((Count > lassguess.count || Value > lassguess.value) && (Count >= 2))return 1;
-	else return false;
+	if (Count < lassguess.count && Value <= lassguess.value)return 0;
+	if (Count == lassguess.count && Value <= lassguess.value)return 0;
+	if (Count <= lassguess.count && Value < lassguess.value)return 0;
+	if (Count < 2)return 0;
+	return 1;
 }
